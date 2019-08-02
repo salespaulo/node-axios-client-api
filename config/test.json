@@ -8,6 +8,9 @@
     "testclient": {
         "url": "http://localhost:9990",
         "timeout": 30000,
-        "delay": 100
+        "delay": 100,
+        "headers": {
+            "Content-Type": "application/json"
+        }
     }
 }

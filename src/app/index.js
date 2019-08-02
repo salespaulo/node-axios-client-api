@@ -11,6 +11,7 @@ const create = configPrefix => {
     const instance = axios.create({
         baseURL: config.get(`${configPrefix}.url`),
         timeout: config.get(`${configPrefix}.timeout`),
+        headers: config.get(`${configPrefix}.headers`),
         adapter: axiosDelay.default(axios.defaults.adapter)
     })
 

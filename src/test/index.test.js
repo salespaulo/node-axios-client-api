@@ -31,6 +31,31 @@ describe('# Testing Axios Client Api', () => {
         })
     )
 
+    it('# Testing GET 404', done => {
+        try {
+            testClient
+                .get('/support/404')
+                .then(result => {
+                    done('URL nao existe, deveria dar erro 404!')
+                })
+                .catch(_e => done())
+        } catch (e) {
+            done(e)
+        }
+    })
+
+    it('# Testing POST 404', done => {
+        try {
+            testClient
+                .post('/support/post/404')
+                .then(result => {
+                    done('URL nao existe, deveria dar erro 404!')
+                })
+                .catch(_e => done())
+        } catch (e) {
+            done(e)
+        }
+    })
     it('# Testing Support Ping', done => {
         try {
             testClient

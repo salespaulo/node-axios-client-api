@@ -7,19 +7,25 @@ const axiosDelay = require('axios-delay')
 const baseClient = require('./base')
 const camundaClient = require('./camunda')
 
-const create = configPrefix => {
-    const instance = axios.create({
-        baseURL: config.get(`${configPrefix}.url`),
-        timeout: config.get(`${configPrefix}.timeout`),
-        headers: config.has(`${configPrefix}.headers`)
-            ? config.get(`${configPrefix}.headers`)
-            : axios.defaults.headers,
-        adapter: axiosDelay.default(axios.defaults.adapter)
-    })
+const create = configOrPrefix => {
+    const opts = {
+        baseURL: configOrPrefix.url || config.get(`${configOrPrefix}.url`),
+        timeout: configOrPrefix.timeout || config.get(`${configOrPrefix}.timeout`),
+        adapter: axiosDelay.default(axios.defaults.adapter),
+        headers:
+            configOrPrefix.headers ||
+            (config.has(`${configOrPrefix}.headers`)
+                ? config.get(`${configOrPrefix}.headers`)
+                : axios.defaults.headers)
+    }
 
-    instance.configPrefix = configPrefix
+    const instance = axios.create(opts)
+    instance.configPrefix = configOrPrefix
 
-    if (configPrefix.includes('camunda')) {
+    if (
+        (typeof configOrPrefix === 'string' && configOrPrefix.includes('camunda')) ||
+        (configOrPrefix.url && configOrPrefix.url.includes('engine-rest'))
+    ) {
         return camundaClient(instance)
     }
 

@@ -42,6 +42,28 @@ describe('# Testing Axios Client Api', () => {
         })
     )
 
+    describe('Passing config by param - OK', () => {
+        it('# Testing GET 200', done => {
+            try {
+                const configClient = client({
+                    url: 'http://localhost:9990',
+                    timeout: 30000
+                })
+                testClient
+                    .get('/support/ping')
+                    .then(result => {
+                        console.log('[INFO] Result ', result.data)
+                        baseResultCheck(result)
+                        chai.assert(result.data.result == 'pong', 'Result Data Is Not Pong Value!')
+                        done()
+                    })
+                    .catch(done)
+            } catch (e) {
+                done(e)
+            }
+        })
+    })
+
     it('# Testing GET 404', done => {
         try {
             testClient

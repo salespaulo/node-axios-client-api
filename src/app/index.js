@@ -11,6 +11,9 @@ const create = configOrPrefix => {
     const opts = {
         baseURL: configOrPrefix.url || config.get(`${configOrPrefix}.url`),
         timeout: configOrPrefix.timeout || config.get(`${configOrPrefix}.timeout`),
+        delay:
+            configOrPrefix.delay ||
+            (config.has(`${configOrPrefix}.delay`) ? config.get(`${configOrPrefix}.delay`) : false),
         adapter: axiosDelay.default(axios.defaults.adapter),
         headers:
             configOrPrefix.headers ||
@@ -26,10 +29,10 @@ const create = configOrPrefix => {
         (typeof configOrPrefix === 'string' && configOrPrefix.includes('camunda')) ||
         (configOrPrefix.url && configOrPrefix.url.includes('engine-rest'))
     ) {
-        return camundaClient(instance)
+        return camundaClient(instance, opts.delay)
     }
 
-    return baseClient(instance)
+    return baseClient(instance, opts.delay)
 }
 
 module.exports = create

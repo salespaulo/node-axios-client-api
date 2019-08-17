@@ -1,1 +1,21 @@
-{}
+{
+    "server": {
+        "name": "test-server",
+        "port": 9990,
+        "version": "1.0.0",
+        "running": true
+    },
+    "testcamunda": {
+        "url": "http://localhost:9990/camunda",
+        "timeout": 30000,
+        "delay": 100
+    },
+    "testclient": {
+        "url": "http://localhost:9990",
+        "timeout": 30000,
+        "delay": 100,
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

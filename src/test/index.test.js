@@ -5,6 +5,7 @@ const chai = require('chai')
 
 const client = require('../index')
 const testClient = client('testclient')
+const testCamunda = client('testcamunda')
 
 let instance = null
 
@@ -24,7 +25,17 @@ const baseResultCheck = result => {
 }
 
 describe('# Testing Axios Client Api', () => {
-    before(() => server.map(s => (instance = s.instance)))
+    before(() =>
+        server
+            .map(server => {
+                server.post('/camunda/external-task/fetchAndLock', (req, res) => {
+                    console.log('>>>> MOCK')
+                    res.status(200).json([])
+                })
+                return server
+            })
+            .map(s => (instance = s.instance))
+    )
     after(() =>
         instance.close(() => {
             console.log('[INFO] Server Close')
@@ -98,6 +109,23 @@ describe('# Testing Axios Client Api', () => {
                 .then(result => {
                     console.log('[INFO] Result ', result.data)
                     healthCheck(result)
+                    done()
+                })
+                .catch(done)
+        } catch (e) {
+            done(e)
+        }
+    })
+
+    // paulo.sales: Work In Process
+    xit('# Testing Camunda Fetch And Lock', done => {
+        try {
+            testCamunda
+                .fetchAndLock('workerIdTest', 'topicIdTest', (_tasks, context) =>
+                    console.log(`test OK context:`, context)
+                )
+                .then(result => {
+                    console.log('[INFO] Result ', result.data)
                     done()
                 })
                 .catch(done)

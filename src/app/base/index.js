@@ -11,7 +11,7 @@ const setDelay = (configPrefix, opts = {}) => {
     return optsWithDelay
 }
 
-const baseClient = instance => {
+module.exports = instance => {
     return {
         get: async (url, opts = {}) => {
             try {
@@ -55,8 +55,4 @@ const baseClient = instance => {
             }
         }
     }
-}
-
-module.exports = {
-    baseClient
 }

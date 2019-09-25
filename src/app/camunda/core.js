@@ -3,9 +3,9 @@
 module.exports = instance => {
     return {
         // Tasks
-        getTasksByDefinitionKey: async (processDefinitionKey, taskDefinitionKey) => {
+        getTasksByDefinitionKey: async (tenantId, processDefinitionKey, taskDefinitionKey) => {
             return await instance.get(
-                `/engine-rest/task?processDefinitionKey=${processDefinitionKey}&taskDefinitionKey=${taskDefinitionKey}`
+                `/engine-rest/task?tenantIdIn=${tenantId}&processDefinitionKey=${processDefinitionKey}&taskDefinitionKey=${taskDefinitionKey}`
             )
         },
         doTaskClaim: async (taskId, username) => {
@@ -50,26 +50,25 @@ module.exports = instance => {
             )
             return resInstance
         },
-        doStart: async (processKey, vars) => {
+        doStart: async (tenantId, processKey, vars) => {
             const keys = Object.keys(vars)
             const variables = {}
-            let businessKey = null
+            const businessKey = keys.find(k => k === 'businessKey')
 
             for (let k in keys) {
-                if (keys[k] === 'businessKey') {
-                    businessKey = vars[keys[k]]
-                }
-
                 variables[`${keys[k]}`] = {
                     value: vars[keys[k]],
                     type: 'String'
                 }
             }
 
-            return await instance.post(`/engine-rest/process-definition/key/${processKey}/start`, {
-                businessKey,
-                variables
-            })
+            return await instance.post(
+                `/engine-rest/process-definition/key/${processKey}/tenant-id/${tenantId}/start`,
+                {
+                    businessKey,
+                    variables
+                }
+            )
         }
     }
 }

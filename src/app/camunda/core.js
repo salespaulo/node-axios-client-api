@@ -53,9 +53,12 @@ module.exports = instance => {
         doStart: async (tenantId, processKey, vars) => {
             const keys = Object.keys(vars)
             const variables = {}
-            const businessKey = keys.find(k => k === 'businessKey')
 
             for (let k in keys) {
+                if (k === 'businessKey') {
+                    continue
+                }
+
                 variables[`${keys[k]}`] = {
                     value: vars[keys[k]],
                     type: 'String'
@@ -65,7 +68,7 @@ module.exports = instance => {
             return await instance.post(
                 `/engine-rest/process-definition/key/${processKey}/tenant-id/${tenantId}/start`,
                 {
-                    businessKey,
+                    businessKey: vars.businessKey,
                     variables
                 }
             )

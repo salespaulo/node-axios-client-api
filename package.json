@@ -1,6 +1,6 @@
 {
     "name": "node-axios-client-api",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Axios Client Api configured with config.js",
     "main": "index.js",
     "scripts": {

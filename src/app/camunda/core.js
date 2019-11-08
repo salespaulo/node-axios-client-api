@@ -33,8 +33,9 @@ module.exports = instance => {
             const variables = {}
 
             for (let k in keys) {
+                const value = !vars[keys[k]] ? 'null' : vars[keys[k]].toString().substr(0, 4000)
                 variables[`${keys[k]}`] = {
-                    value: vars[keys[k]],
+                    value,
                     type: 'String'
                 }
             }

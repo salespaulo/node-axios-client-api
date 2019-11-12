@@ -1,5 +1,27 @@
 'use strict'
 
+const convertToCamundaVariables = vars => {
+    const keys = Object.keys(vars)
+    const variables = {}
+
+    for (let k in keys) {
+        if (k === 'businessKey') {
+            continue
+        }
+
+        const value = !vars[keys[k]] 
+                        ? 'null' 
+                        : vars[keys[k]].toString().substr(0, 4000)
+
+        variables[`${keys[k]}`] = {
+            value,
+            type: 'String'
+        }
+    }
+
+    return variables
+}
+
 module.exports = instance => {
     return {
         // Tasks
@@ -51,21 +73,15 @@ module.exports = instance => {
             )
             return resInstance
         },
+        doUpdateVariables: async (tenantId, taskId, vars) => {
+            const variables = convertToCamundaVariables(vars)
+
+            return await instance.post(
+                `/engine-rest/task/${taskId}/variables`, variables
+            )
+        },
         doStart: async (tenantId, processKey, vars) => {
-            const keys = Object.keys(vars)
-            const variables = {}
-
-            for (let k in keys) {
-                if (k === 'businessKey') {
-                    continue
-                }
-
-                const value = !vars[keys[k]] ? 'null' : vars[keys[k]].toString().substr(0, 4000)
-                variables[`${keys[k]}`] = {
-                    value,
-                    type: 'String'
-                }
-            }
+            const variables = convertToCamundaVariables(vars)
 
             return await instance.post(
                 `/engine-rest/process-definition/key/${processKey}/tenant-id/${tenantId}/start`,

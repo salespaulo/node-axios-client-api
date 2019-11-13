@@ -1,56 +1,56 @@
 {
-  "name": "node-axios-client-api",
-  "version": "0.1.7",
-  "description": "Axios Client Api configured with config.js",
-  "main": "index.js",
-  "scripts": {
-    "compile": "grunt compile",
-    "test": "grunt test",
-    "dev": "grunt dev",
-    "prod": "grunt prod",
-    "deploy": "grunt deploy"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/salespaulo/node-axios-client-api.git"
-  },
-  "keywords": [
-    "node",
-    "nodejs",
-    "utils",
-    "utilities"
-  ],
-  "author": "Paulo R. A. Sales",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/salespaulo/node-axios.client-api/issues"
-  },
-  "homepage": "https://github.com/salespaulo/node-axios.client-api#readme",
-  "dependencies": {
-    "node-winston-logging": "*",
-    "node-config-utils": "*",
-    "axios": "*",
-    "axios-delay": "*"
-  },
-  "devDependencies": {
-    "node-express-server-api": "*",
-    "path": "*",
-    "chai": "*",
-    "chai-http": "*",
-    "mocha": "*",
-    "nodemon": "*",
-    "standard": "*",
-    "load-grunt-tasks": "*",
-    "grunt": "*",
-    "grunt-env": "*",
-    "grunt-shell": "*",
-    "grunt-notify": "*",
-    "grunt-nodemon": "*",
-    "grunt-concurrent": "*",
-    "grunt-mocha-test": "*",
-    "grunt-contrib-clean": "*",
-    "grunt-contrib-copy": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-contrib-compress": "*"
-  }
+    "name": "node-axios-client-api",
+    "version": "0.1.8",
+    "description": "Axios Client Api configured with config.js",
+    "main": "index.js",
+    "scripts": {
+        "compile": "grunt compile",
+        "test": "grunt test",
+        "dev": "grunt dev",
+        "prod": "grunt prod",
+        "deploy": "grunt deploy"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/salespaulo/node-axios-client-api.git"
+    },
+    "keywords": [
+        "node",
+        "nodejs",
+        "utils",
+        "utilities"
+    ],
+    "author": "Paulo R. A. Sales",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/salespaulo/node-axios.client-api/issues"
+    },
+    "homepage": "https://github.com/salespaulo/node-axios.client-api#readme",
+    "dependencies": {
+        "node-winston-logging": "*",
+        "node-config-utils": "*",
+        "axios": "*",
+        "axios-delay": "*"
+    },
+    "devDependencies": {
+        "node-express-server-api": "*",
+        "path": "*",
+        "chai": "*",
+        "chai-http": "*",
+        "mocha": "*",
+        "nodemon": "*",
+        "standard": "*",
+        "load-grunt-tasks": "*",
+        "grunt": "*",
+        "grunt-env": "*",
+        "grunt-shell": "*",
+        "grunt-notify": "*",
+        "grunt-nodemon": "*",
+        "grunt-concurrent": "*",
+        "grunt-mocha-test": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-contrib-compress": "*"
+    }
 }

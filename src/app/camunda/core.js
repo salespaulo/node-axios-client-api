@@ -9,11 +9,19 @@ const convertToCamundaVariables = vars => {
             continue
         }
 
-        const value = !vars[keys[k]] ? 'null' : vars[keys[k]].toString().substr(0, 4000)
+        const key = keys[k]
+        const value = !vars[key] ? 'null' : vars[key].toString().substr(0, 4000)
+        const type = key.startsWith('bol')
+            ? 'boolean'
+            : key.startsWith('num')
+            ? 'double'
+            : key.startsWith('dat')
+            ? 'date'
+            : 'string'
 
         variables[`${keys[k]}`] = {
             value,
-            type: 'String'
+            type,
         }
     }
 
@@ -25,12 +33,12 @@ module.exports = instance => {
         // Tasks
         getTasksByDefinitionKey: async (tenantId, processDefinitionKey, taskDefinitionKey) => {
             return await instance.get(
-                `/engine-rest/task?tenantIdIn=${tenantId}&processDefinitionKey=${processDefinitionKey}&taskDefinitionKey=${taskDefinitionKey}`
+                `/engine-rest/task?tenantIdIn=${tenantId}&processDefinitionKey=${processDefinitionKey}&taskDefinitionKey=${taskDefinitionKey}`,
             )
         },
         doTaskClaim: async (taskId, username) => {
             return await instance.post(`/engine-rest/task/${taskId}/claim`, {
-                userId: username
+                userId: username,
             })
         },
         getTaskVariables: async taskId => {
@@ -58,12 +66,12 @@ module.exports = instance => {
                 const value = !vars[keys[k]] ? 'null' : vars[keys[k]].toString().substr(0, 4000)
                 variables[`${keys[k]}`] = {
                     value,
-                    type: 'String'
+                    type: 'String',
                 }
             }
 
             return await instance.post(`/engine-rest/task/${taskId}/complete`, {
-                variables
+                variables,
             })
         },
         // Process
@@ -71,7 +79,7 @@ module.exports = instance => {
             const resTask = await instance.get(`/engine-rest/task/${taskId}`)
             const task = resTask.data
             const resInstance = await instance.get(
-                `/engine-rest/process-instance/${task.processInstanceId}`
+                `/engine-rest/process-instance/${task.processInstanceId}`,
             )
             return resInstance
         },
@@ -79,7 +87,7 @@ module.exports = instance => {
             const variables = convertToCamundaVariables(vars)
 
             return await instance.post(`/engine-rest/task/${taskId}/variables`, {
-                modifications: variables
+                modifications: variables,
             })
         },
         doStart: async (tenantId, processKey, vars) => {
@@ -89,9 +97,9 @@ module.exports = instance => {
                 `/engine-rest/process-definition/key/${processKey}/tenant-id/${tenantId}/start`,
                 {
                     businessKey: vars.businessKey,
-                    variables
-                }
+                    variables,
+                },
             )
-        }
+        },
     }
 }

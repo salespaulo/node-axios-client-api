@@ -1,8 +1,9 @@
 {
     "name": "node-axios-client-api",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "Axios Client Api configured with config.js",
     "main": "index.js",
+    "prettier": "intelligir-prettier-config",
     "scripts": {
         "compile": "grunt compile",
         "test": "grunt test",
@@ -27,10 +28,11 @@
     },
     "homepage": "https://github.com/salespaulo/node-axios.client-api#readme",
     "dependencies": {
-        "node-winston-logging": "*",
-        "node-config-utils": "*",
         "axios": "*",
-        "axios-delay": "*"
+        "axios-delay": "*",
+        "intelligir-prettier-config": "0.0.1",
+        "node-config-utils": "*",
+        "node-winston-logging": "*"
     },
     "devDependencies": {
         "node-express-server-api": "*",

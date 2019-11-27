@@ -11,13 +11,7 @@ const convertToCamundaVariables = vars => {
 
         const key = keys[k]
         const value = !vars[key] ? 'null' : vars[key].toString().substr(0, 4000)
-        const type = key.startsWith('bol')
-            ? 'boolean'
-            : key.startsWith('num')
-            ? 'double'
-            : key.startsWith('dat')
-            ? 'date'
-            : 'string'
+        const type = key.startsWith('bol') ? 'boolean' : 'string'
 
         variables[`${keys[k]}`] = {
             value,

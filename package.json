@@ -1,6 +1,6 @@
 {
     "name": "node-axios-client-api",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "description": "Axios Client Api configured with config.js",
     "main": "index.js",
     "prettier": "intelligir-prettier-config",

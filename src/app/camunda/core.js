@@ -31,7 +31,7 @@ const convertToCamundaVariables = vars => {
                     type = 'string'
                 }
         }
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>> value type', { value, type })
+
         variables[`${keys[k]}`] = {
             value,
             type,

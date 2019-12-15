@@ -10,9 +10,28 @@ const convertToCamundaVariables = vars => {
         }
 
         const key = keys[k]
-        const value = !vars[key] ? 'null' : vars[key].toString().substr(0, 4000)
-        const type = key.startsWith('bol') ? 'boolean' : 'string'
+        let value = !vars[key] ? 'null' : vars[key]
+        let type = 'string'
 
+        const typeOfValue = typeof value
+
+        switch (typeOfValue) {
+            case 'boolean':
+                type = 'boolean'
+                break
+            case 'object':
+            case 'array':
+                type = 'json'
+                break
+            default:
+                if (value.toString().length > 4000) {
+                    type = 'json'
+                    value = JSON.stringify(value)
+                } else {
+                    type = 'string'
+                }
+        }
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>> value type', { value, type })
         variables[`${keys[k]}`] = {
             value,
             type,

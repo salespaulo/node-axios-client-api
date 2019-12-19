@@ -1,6 +1,6 @@
 {
     "name": "node-axios-client-api",
-    "version": "0.2.2",
+    "version": "0.2.6",
     "description": "Axios Client Api configured with config.js",
     "main": "index.js",
     "prettier": "intelligir-prettier-config",
@@ -30,8 +30,8 @@
     "dependencies": {
         "axios": "*",
         "axios-delay": "*",
-        "node-config-utils": "*",
-        "node-winston-logging": "*"
+        "node-config-utils": "0.0.8",
+        "node-winston-logging": "0.0.1"
     },
     "devDependencies": {
         "intelligir-prettier-config": "0.0.1",

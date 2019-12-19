@@ -26,7 +26,7 @@ const baseResultCheck = result => {
 
 describe('# Testing Axios Client Api', () => {
     before(() =>
-        server
+        server()
             .map(server => {
                 server.post('/camunda/external-task/fetchAndLock', (req, res) => {
                     console.log('>>>> MOCK')
@@ -34,12 +34,12 @@ describe('# Testing Axios Client Api', () => {
                 })
                 return server
             })
-            .map(s => (instance = s.instance))
+            .map(s => (instance = s.instance)),
     )
     after(() =>
         instance.close(() => {
             console.log('[INFO] Server Close')
-        })
+        }),
     )
 
     describe('Passing config by param - OK', () => {
@@ -47,7 +47,7 @@ describe('# Testing Axios Client Api', () => {
             try {
                 const configClient = client({
                     url: 'http://localhost:9990',
-                    timeout: 30000
+                    timeout: 30000,
                 })
                 testClient
                     .get('/support/ping')
@@ -114,7 +114,7 @@ describe('# Testing Axios Client Api', () => {
                     baseResultCheck(result)
                     chai.assert(
                         result.data.result == 'testing',
-                        'Result Data Is Not testing Value!'
+                        'Result Data Is Not testing Value!',
                     )
                     done()
                 })
@@ -144,7 +144,7 @@ describe('# Testing Axios Client Api', () => {
         try {
             testCamunda
                 .fetchAndLock('workerIdTest', 'topicIdTest', (_tasks, context) =>
-                    console.log(`test OK context:`, context)
+                    console.log(`test OK context:`, context),
                 )
                 .then(result => {
                     console.log('[INFO] Result ', result.data)

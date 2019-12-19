@@ -24,7 +24,7 @@ const convertToCamundaVariables = vars => {
                 type = 'json'
                 break
             default:
-                if (value.toString().length > 4000) {
+                if (value.toString().length > 3999) {
                     type = 'json'
                     value = JSON.stringify(value)
                 } else {
